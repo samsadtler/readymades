@@ -1,5 +1,13 @@
 
 var preveriousGamma = 0;
+var soundsArray = [
+	'assets/vibemotor.m4a',
+	'assets/vibemotor.m4a',
+	'assets/vibemotor.m4a',
+	'assets/vibemotor.m4a'
+]; 
+var loadedSound = {};
+
 $(document).ready(function(){
 	init();
 
@@ -9,7 +17,7 @@ $(document).ready(function(){
 
 function init(){
 	console.log('init')
-	preload();
+	// preload();
 
 	window.addEventListener('deviceorientation', handleOrientation);
 	// window.addEventListener("resize" , checkWidth);
@@ -18,11 +26,14 @@ function init(){
 
 
 function preload() {
-  mySound = loadSound('assets/doorbell.mp3');
+	console.log('preload')
+	for (var i = 0; i < soundsArray.length; i++){
+		loadedSound[i] = loadSound(soundsArray[i]);
+	}
+  
 }
 function setup() {
-  mySound.setVolume(0.1);
-  mySound.play();
+  
 }
 
 function handleOrientation(event) {
@@ -35,12 +46,17 @@ function handleOrientation(event) {
  	
  	if (gamma > preveriousGamma + buffer){	
  		preveriousGamma = gamma;
-		
+		playSounds();
 	}
 	if (gamma < preveriousGamma - buffer){
 		preveriousGamma = gamma ;
+		playSounds();
 
 	}
-
   // Do stuff with the new orientation data
+}
+
+function playSounds(){
+	loadSound[1].setVolume(0.5);
+	loadSound[1].play();
 }
