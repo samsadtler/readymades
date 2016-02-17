@@ -2,11 +2,11 @@
 var preveriousGamma = 0;
 var soundsArray = [
 	'assets/vibemotor.m4a',
-	'assets/vibemotor.m4a',
-	'assets/vibemotor.m4a',
+	'assets/child-laughing.wav',
+	'assets/man-scream.wav',
 	'assets/vibemotor.m4a'
 ]; 
-var loadedSound = {};
+var loadedSound = [];
 
 $(document).ready(function(){
 	init();
@@ -24,11 +24,12 @@ function init(){
 }
 
 
-
 function preload() {
+	 
+	 // loadedSound.push(array)
 	console.log('preload')
 	for (var i = 0; i < soundsArray.length; i++){
-		loadedSound[i] = loadSound(soundsArray[i]);
+		loadedSound.push(loadSound(soundsArray[i]));
 	}
   
 }
@@ -42,21 +43,24 @@ function handleOrientation(event) {
   	var beta     = event.beta;
 	var gamma    = event.gamma;
 	var buffer   = 10;
-	console.log('absolute: ', absolute, ' alpha: ', alpha, ' beta: ', beta, 'gamma: ', gamma)
+	
  	
  	if (gamma > preveriousGamma + buffer){	
+ 		console.log('absolute: ', absolute, ' alpha: ', alpha, ' beta: ', beta, 'gamma: ', gamma)
  		preveriousGamma = gamma;
-		playSounds();
+		playSounds(2);
 	}
 	if (gamma < preveriousGamma - buffer){
+		console.log('absolute: ', absolute, ' alpha: ', alpha, ' beta: ', beta, 'gamma: ', gamma)
 		preveriousGamma = gamma ;
-		playSounds();
+		playSounds(1);
 
 	}
   // Do stuff with the new orientation data
 }
 
-function playSounds(){
-	loadSound[1].setVolume(0.5);
-	loadSound[1].play();
+function playSounds(sound){
+	console.log('playSounds')
+	loadedSound[sound].setVolume(0.5);
+	loadedSound[sound].play();
 }
