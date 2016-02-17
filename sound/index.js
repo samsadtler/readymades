@@ -1,5 +1,6 @@
 
 var preveriousGamma = 0;
+var preveriousPreveriousGamma = 0;
 var soundsArray = [
 	'assets/vibemotor.m4a',
 	'assets/child-laughing.wav',
@@ -46,14 +47,32 @@ function handleOrientation(event) {
 	
  	
  	if (gamma > preveriousGamma + buffer){	
+ 		console.log('forwards')
  		console.log('absolute: ', absolute, ' alpha: ', alpha, ' beta: ', beta, 'gamma: ', gamma)
  		preveriousGamma = gamma;
 		playSounds(2);
 	}
 	if (gamma < preveriousGamma - buffer){
+		console.log('backwards')
 		console.log('absolute: ', absolute, ' alpha: ', alpha, ' beta: ', beta, 'gamma: ', gamma)
 		preveriousGamma = gamma ;
 		playSounds(1);
+
+	}
+	if (preveriousPreveriousGamma < preveriousGamma - buffer && preveriousPreveriousGamma > gamma){
+		console.log("back and forth")
+		console.log('absolute: ', absolute, ' alpha: ', alpha, ' beta: ', beta, 'gamma: ', gamma)
+		preveriousPreveriousGamma = preveriousGamma;
+		preveriousGamma = gamma ;
+		playSounds(0);
+	}
+	if (preveriousPreveriousGamma > preveriousGamma + buffer && preveriousPreveriousGamma < gamma){
+		console.log("forth and back")
+		console.log('absolute: ', absolute, ' alpha: ', alpha, ' beta: ', beta, 'gamma: ', gamma)
+		preveriousPreveriousGamma = preveriousGamma;
+		preveriousGamma = gamma ;
+		playSounds(0);
+
 
 	}
   // Do stuff with the new orientation data
