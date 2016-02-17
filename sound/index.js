@@ -79,7 +79,7 @@ function handleOrientation(event) {
 }
 
 function playSounds(sound){
-	console.log('playSounds')
+	console.log('playSound: ', sound)
 	loadedSound[sound].setVolume(0.5);
 	loadedSound[sound].play();
 }
